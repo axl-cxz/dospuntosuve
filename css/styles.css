@@ -1,0 +1,83 @@
+:root {
+    --colorPrimario: #fff;
+    --colorSecundario: #000;
+    --colorTerciario: #e05bbfec;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.Mensaje__titulo{
+    color: var(--colorSecundario);
+    text-align: center;
+    font-size: 30px;
+    width: calc(100% - 32px);
+    max-width: 800px;
+    margin: 150px auto 0;
+    padding: 16px;
+    border: 2px solid var(--colorSecundario);
+    font-family: "Josefin Sans", sans-serif;
+    border-radius: 20px;
+}
+
+.Contenedor{
+    border: 2px solid var(--colorSecundario);
+    max-width: 800px;
+    margin: auto; 
+    padding: 3em;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.Cumpleaños__Inicio{
+    color: var(--colorSecundario);
+    text-align: center;
+    font-size: 30px;
+    width: calc(100% - 32px);
+    max-width: 800px;
+    margin: 150px auto 0;
+    padding: 16px;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 100px;
+    margin-top: 10px;
+}
+
+.Cumpleaños__mensaje{
+    font-family: "Dancing Script", cursive;
+    text-align: center;
+    margin: auto;
+    font-size: 30px;
+}
+
+i { 
+    font-size: 300px;
+    color: var(--colorSecundario);
+    margin: auto;
+    display: block;
+}
+
+.Elige__xd{
+    text-align: center;
+    border: 2px solid var(--colorSecundario);
+    width: 150px;
+    margin: auto;
+    background-color: var(--colorTerciario);
+    border-radius: 20px;
+    padding: 0.5em;
+}
+
+.link__propuesta {
+    text-decoration: none;
+    color: var(--colorSecundario);
+    font-size: 1.5em;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 0;
+}
+
+.link__propuesta:hover {
+    color: aliceblue;
+    transition: 0.1s ease-in-out;
+}
