@@ -4,8 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    
+<body class="page-ok">
+    <main class="ok-contenido">
+        <p class="ok-carta">Supongo que me odias..., no se que hice pero supongo que si me odias..., para no querer leer mi carta :c.<br>
+            bueno, antes de terminar aqui, solo dejame hacerte una preguntas. Ante todo feliz cumpleaños y que la pases bonito ilysm.</p>
+
+        <p class="ok-introduccion">suponiendo que no quieres leer mi carta, responde esto :'v</p>
+        <h1 class="ok-pregunta">Me odias?</h1>
+
+        <div class="ok-opciones" aria-label="Respuestas a la pregunta">
+            <div class="ok-opcion">
+                <button class="ok-boton" type="button" data-respuesta=":c">Si y mucho</button>
+            </div>
+            <div class="ok-opcion">
+                <button class="ok-boton" type="button" data-respuesta="Bueno...">Un poco</button>
+            </div>
+            <div class="ok-opcion">
+                <button class="ok-boton" type="button" data-respuesta="jejej">No te odio</button>
+            </div>
+        </div>
+
+        <section class="ok-pregunta-grupo" aria-labelledby="pregunta-aburrir">
+            <h2 id="pregunta-aburrir" class="ok-pregunta">Alguna vez te aburri?</h2>
+            <div class="ok-opciones ok-opciones--compactas" aria-label="Respuestas a si alguna vez se aburrió">
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta=":c">SIEMPREE</button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta=":3">Nono</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="ok-pregunta-grupo" aria-labelledby="pregunta-diversion">
+            <h2 id="pregunta-diversion" class="ok-pregunta">Te divertias conmigo?</h2>
+            <div class="ok-opciones ok-opciones--compactas" aria-label="Respuestas a si se divertía conmigo">
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Entiendo...">No, zzz</button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Yo tambien me divertia muchisimo jejej">Muchisimo jejej</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="ok-pregunta-grupo" aria-labelledby="pregunta-juegos">
+            <h2 id="pregunta-juegos" class="ok-pregunta">Te gustaba jugar conmigo cualquier juego?</h2>
+            <div class="ok-opciones" aria-label="Respuestas sobre jugar juntos">
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Mmmm">PARA NADA</button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="..."><span>Algo, con <strong>otros</strong> era mejor</span></button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Para mi todo era hermoso contigo :c">Me encantaba</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="ok-pregunta-grupo" aria-labelledby="pregunta-querer">
+            <h2 id="pregunta-querer" class="ok-pregunta">Me quieres...?</h2>
+            <div class="ok-opciones" aria-label="Respuestas a si me quieres">
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Igualmente te sigo queriendo :3">No.</button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Pues yo mass :3">Un poco</button>
+                </div>
+                <div class="ok-opcion">
+                    <button class="ok-boton" type="button" data-respuesta="Pues ya sabes que yo siempre te voy a querer mas que tu a mi :3">shi</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="ok-regreso">
+            <p>Regresemos al inicio</p>
+            <a class="ok-boton ok-boton--inicio" href="index.html">Inicio</a>
+        </div>
+
+        <p class="ok-nota"> Pd: Puedes marcar mas de una opcion para saber la respuesta  <br> <br> Pd: Me dio pena escribir cada pregunta junto a cada respuesta unu <br> <br> Pd: Cualquier respuesta sera privada y no podre saber que respondiste por la simple razon que no se como hacerlo :v</p>
+    </main>
+
+    <script>
+        document.querySelectorAll('button.ok-boton').forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                if (boton.disabled) {
+                    return;
+                }
+
+                boton.disabled = true;
+                boton.classList.add('ok-boton--desvanecer');
+                function mostrarRespuesta(event) {
+                    if (event.propertyName !== 'opacity') {
+                        return;
+                    }
+
+                    boton.removeEventListener('transitionend', mostrarRespuesta);
+                    const respuesta = document.createElement('span');
+                    respuesta.className = 'ok-respuesta';
+                    respuesta.textContent = boton.dataset.respuesta;
+                    respuesta.setAttribute('aria-live', 'polite');
+                    boton.replaceWith(respuesta);
+                }
+
+                boton.addEventListener('transitionend', mostrarRespuesta);
+            });
+        });
+    </script>
 </body>
 </html>
