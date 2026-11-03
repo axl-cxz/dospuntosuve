@@ -11,11 +11,11 @@
 </head>
 <body class="page-propuesta">
     <main class="propuesta">
-        <div class="sobre-carta" aria-label="Sobre de carta">
-            <div class="sobre-carta__solapa"></div>
-            <div class="sobre-carta__sello" aria-hidden="true"></div>
-            <span class="sobre-carta__danos" aria-hidden="true"></span>
-            <span id="mensajeEscapista" class="sobre-carta__mensaje" hidden>._.</span>
+        <div class="libro-propuesta" aria-label="Libro cerrado">
+            <span class="libro-propuesta__lomo" aria-hidden="true"></span>
+            <span class="libro-propuesta__titulo" aria-hidden="true">Para ti</span>
+            <span class="libro-propuesta__danos" aria-hidden="true"></span>
+            <span id="mensajeEscapista" class="libro-propuesta__mensaje" hidden>._.</span>
         </div>
 
         <p id="mensaje" class="texto-bajo">¿Quieres leer lo que tengo para ti?</p>
@@ -145,7 +145,7 @@
                 mensajeEscapista.textContent = mensajes[intentosNoEscapista - 1];
                 mensajeEscapista.hidden = false;
                 document.body.classList.add('page-propuesta--no-hover');
-                mensajeEscapista.classList.toggle('sobre-carta__mensaje--grande', intentosNoEscapista === 2);
+                mensajeEscapista.classList.toggle('libro-propuesta__mensaje--grande', intentosNoEscapista === 2);
 
                 if (intentosNoEscapista === mensajes.length) {
                     noEscapista.hidden = true;

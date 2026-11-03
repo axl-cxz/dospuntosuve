@@ -25,13 +25,79 @@
         <span class="decoracion-carta decoracion-carta--corazon decoracion-carta--corazon-tres">♡</span>
     </div>
     <main class="carta-escena">
-        <article class="carta-hoja">
-            <p>Hola <br> empezando</p>
-        </article>
-        <div class="carta-sobre" aria-label="Un sobre de carta que se abre">
-            <div class="carta-sobre__frente" aria-hidden="true"></div>
-            <div class="carta-sobre__solapa" aria-hidden="true"></div>
+        <div class="libro-carta" aria-label="Un libro que se abre para mostrar la carta">
+            <div class="libro-carta__interior">
+                <article class="carta-hoja carta-hoja--derecha" aria-label="Página 1">
+                    <p>Hola<br>empezando</p>
+                </article>
+                <article class="carta-hoja" aria-label="Página 2" hidden>
+                    <p>Continúa aquí tu carta...</p>
+                </article>
+            </div>
+            <div class="libro-carta__portada" aria-hidden="true">
+                <span>Una carta para ti</span>
+            </div>
         </div>
+        <nav class="carta-controles" aria-label="Navegación de páginas">
+            <button class="carta-controles__boton" id="paginaAnterior" type="button" disabled>← Anterior</button>
+            <span class="carta-controles__contador" id="contadorPaginas" aria-live="polite">Página 1 de 2</span>
+            <button class="carta-controles__boton" id="paginaSiguiente" type="button">Siguiente →</button>
+        </nav>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const paginas = Array.from(document.querySelectorAll('.carta-hoja'));
+            const anterior = document.getElementById('paginaAnterior');
+            const siguiente = document.getElementById('paginaSiguiente');
+            const contador = document.getElementById('contadorPaginas');
+            let vistaActual = -1;
+
+            function mostrarPagina(indice, direccion) {
+                if (indice < 0 || indice > paginas.length || indice === vistaActual) {
+                    return;
+                }
+
+                vistaActual = indice;
+                const paginaIzquierda = vistaActual === 0 ? -1 : Math.min(vistaActual, paginas.length) - 1;
+                const paginaDerecha = vistaActual < paginas.length ? vistaActual : -1;
+
+                paginas.forEach(function (pagina, numero) {
+                    const lado = numero === paginaIzquierda ? 'izquierda' : numero === paginaDerecha ? 'derecha' : '';
+                    pagina.hidden = lado === '';
+                    pagina.classList.remove('carta-hoja--izquierda', 'carta-hoja--derecha');
+
+                    if (lado) {
+                        pagina.classList.add(`carta-hoja--${lado}`);
+                        if (direccion) {
+                            pagina.classList.add(`carta-hoja--${direccion}`);
+                        }
+                    }
+                });
+
+                const esFinal = vistaActual === paginas.length;
+                contador.textContent = esFinal
+                    ? 'Final de la carta'
+                    : `Página ${vistaActual + 1} de ${paginas.length}`;
+                anterior.disabled = vistaActual === 0;
+                siguiente.disabled = esFinal;
+            }
+
+            paginas.forEach(function (pagina) {
+                pagina.addEventListener('animationend', function () {
+                    pagina.classList.remove('carta-hoja--siguiente', 'carta-hoja--anterior');
+                });
+            });
+
+            siguiente.addEventListener('click', function () {
+                mostrarPagina(vistaActual + 1, 'siguiente');
+            });
+
+            anterior.addEventListener('click', function () {
+                mostrarPagina(vistaActual - 1, 'anterior');
+            });
+
+            mostrarPagina(vistaActual);
+        });
+    </script>
 </body>
 </html>

@@ -531,40 +531,65 @@ body::before {
     z-index: 1;
     width: min(100%, 820px);
     margin: 0 auto;
-    perspective: 1000px;
+    perspective: 1400px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.carta-sobre {
+.libro-carta {
     position: relative;
     z-index: 2;
-    width: 100%;
+    width: 50%;
     height: clamp(320px, 45vw, 430px);
-    border: 3px solid rgba(108, 151, 177, 0.32);
-    border-radius: 12px 12px 18px 18px;
-    background: linear-gradient(180deg, #eaf7ff 0%, #cfe8f5 100%);
+    transform-style: preserve-3d;
+    animation: expandir-libro 1.4s 1.2s cubic-bezier(0.45, 0.05, 0.2, 1) forwards;
+}
+
+.libro-carta__interior {
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(108, 151, 177, 0.35);
+    border-radius: 14px 20px 20px 14px;
+    background:
+        linear-gradient(90deg, transparent 49.5%, rgba(108, 151, 177, 0.25) 50%, transparent 50.5%),
+        #fffdfd;
     box-shadow: 0 20px 40px rgba(91, 145, 177, 0.2);
-    isolation: isolate;
-    animation: desvanecer-sobre 1s 2s ease forwards;
 }
 
 .carta-hoja {
-    position: relative;
-    z-index: 1;
-    width: 86%;
-    min-height: 560px;
-    margin-bottom: 24px;
-    padding: clamp(22px, 5vw, 42px);
+    position: absolute;
+    padding: clamp(18px, 4vw, 40px);
     border: 1px solid rgba(108, 151, 177, 0.24);
-    border-radius: 4px;
-    background: #fffdfd;
-    box-shadow: 0 4px 14px rgba(91, 145, 177, 0.15);
+    background:
+        repeating-linear-gradient(0deg, transparent 0 34px, rgba(91, 145, 177, 0.08) 35px 36px),
+        #fffdfd;
+    box-shadow: 4px 6px 14px rgba(73, 58, 82, 0.12);
     color: var(--colorTexto);
-    transform: translateY(100%);
-    clip-path: inset(0 0 100%);
-    animation: salir-carta 1.4s 0.95s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+    overflow: auto;
+}
+
+.carta-hoja--izquierda {
+    inset: 5% 51% 5% 3%;
+    border-radius: 12px 4px 4px 12px;
+    box-shadow: -4px 6px 14px rgba(73, 58, 82, 0.1);
+}
+
+.carta-hoja--derecha {
+    inset: 5% 3% 5% 51%;
+    border-radius: 4px 12px 12px 4px;
+}
+
+.carta-hoja[hidden] {
+    display: none;
+}
+
+.carta-hoja--siguiente {
+    animation: pasar-pagina-siguiente 0.35s ease both;
+}
+
+.carta-hoja--anterior {
+    animation: pasar-pagina-anterior 0.35s ease both;
 }
 
 .carta-hoja p {
@@ -574,122 +599,162 @@ body::before {
     white-space: pre-wrap;
 }
 
-.carta-sobre__frente {
+@keyframes pasar-pagina-siguiente {
+    from {
+        opacity: 0.55;
+        transform: rotateY(-10deg) translateX(12px);
+        transform-origin: left center;
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateY(0) translateX(0);
+    }
+}
+
+@keyframes pasar-pagina-anterior {
+    from {
+        opacity: 0.55;
+        transform: rotateY(10deg) translateX(-12px);
+        transform-origin: left center;
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateY(0) translateX(0);
+    }
+}
+
+.carta-controles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.carta-controles__boton {
+    min-width: 130px;
+    padding: 10px 16px;
+    border: 2px solid rgba(91, 151, 181, 0.4);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8dce8, #deeffa);
+    color: var(--colorTexto);
+    font: 600 0.95rem/1.3 "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.carta-controles__boton:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.carta-controles__boton:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.carta-controles__contador {
+    min-width: 100px;
+    color: var(--colorTexto);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.libro-carta__portada {
     position: absolute;
-    z-index: 1;
     inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(145deg, #dceffa, #b9deef);
-    clip-path: polygon(0 30%, 50% 72%, 100% 30%, 100% 100%, 0 100%);
+    display: grid;
+    place-items: center;
+    border: 3px solid rgba(108, 151, 177, 0.5);
+    border-radius: 14px 20px 20px 14px;
+    background:
+        linear-gradient(90deg, rgba(73, 58, 82, 0.26) 0 5%, transparent 5.5%),
+        linear-gradient(145deg, #c7e4f2, #a8d1e5 70%, #92c2da);
+    box-shadow: 0 20px 40px rgba(91, 145, 177, 0.2), inset 0 0 0 9px rgba(255, 255, 255, 0.25);
+    color: #477f9f;
+    transform-origin: left center;
+    transform: rotateY(0);
+    backface-visibility: hidden;
+    animation: abrir-libro 1.4s 1.2s cubic-bezier(0.45, 0.05, 0.2, 1) forwards;
 }
 
-.carta-sobre__solapa {
-    position: absolute;
-    z-index: 2;
-    inset: 0 0 auto;
-    height: 58%;
-    background: linear-gradient(180deg, #c8e7f5 0%, #e5f4fb 100%);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transform: rotateX(0);
-    transform-origin: top center;
-    backface-visibility: visible;
-    animation: abrir-solapa 0.9s 0.2s ease-in forwards;
+.libro-carta__portada span {
+    display: grid;
+    place-items: center;
+    width: 58%;
+    height: 68%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    outline: 1px solid rgba(255, 255, 255, 0.42);
+    outline-offset: 7px;
+    border-radius: 8px;
+    font-family: "Parisienne", cursive;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    text-align: center;
 }
 
-@keyframes abrir-solapa {
+@keyframes abrir-libro {
     to {
-        transform: rotateX(180deg);
-        z-index: -2;
-    }
-}
-
-@keyframes salir-carta {
-    to {
-        transform: translateY(0);
-        clip-path: inset(0);
-    }
-}
-
-@keyframes desvanecer-sobre {
-    to {
-        opacity: 0;
+        transform: rotateY(-170deg);
         visibility: hidden;
     }
 }
 
+@keyframes expandir-libro {
+    to {
+        width: 100%;
+    }
+}
+
 .propuesta {
-    width: min(100%, 620px);
+    width: min(100%, 820px);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 22px;
 }
 
-.sobre-carta {
+.libro-propuesta {
     position: relative;
-    width: min(100%, 620px);
-    height: 360px;
-    background: linear-gradient(180deg, #eaf7ff 0%, #cfe8f5 100%);
-    border: 3px solid rgba(108, 151, 177, 0.32);
-    border-radius: 12px 12px 18px 18px;
-    box-shadow: 0 20px 40px rgba(91, 145, 177, 0.18);
+    width: 50%;
+    height: clamp(320px, 45vw, 430px);
+    border: 3px solid rgba(108, 151, 177, 0.5);
+    border-radius: 14px 20px 20px 14px;
+    background:
+        linear-gradient(90deg, rgba(73, 58, 82, 0.26) 0 5%, transparent 5.5%),
+        linear-gradient(145deg, #c7e4f2, #a8d1e5 70%, #92c2da);
+    box-shadow: 0 20px 40px rgba(91, 145, 177, 0.2), inset 0 0 0 9px rgba(255, 255, 255, 0.25);
     overflow: hidden;
     transform: rotate(0deg);
 }
 
-.sobre-carta::before {
-    content: "";
+.libro-propuesta__lomo {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.44), rgba(91,145,177,0.04));
+    inset: 0 auto 0 7%;
+    width: 3px;
+    background: rgba(255, 255, 255, 0.42);
+    box-shadow: 3px 0 8px rgba(73, 58, 82, 0.15);
 }
 
-.sobre-carta::after {
-    content: "";
+.libro-propuesta__titulo {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 48%;
-    background: linear-gradient(180deg, rgba(91,145,177,0.02), rgba(91,145,177,0.08));
-    clip-path: polygon(0 24%, 100% 24%, 100% 100%, 0 100%);
-}
-
-.sobre-carta__solapa {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #c8e7f5 0%, #e5f4fb 100%);
-    clip-path: polygon(0 0, 50% 58%, 100% 0);
-    border-bottom: 2px solid rgba(108, 151, 177, 0.3);
-    z-index: 2;
-}
-
-.sobre-carta__sello {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 110px;
-    height: 110px;
-    transform: translate(-50%, -10%);
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #f28eae, #d94d7a 70%, #b93663 100%);
-    border: 7px solid rgba(173, 51, 91, 0.78);
-    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.2), 0 12px 22px rgba(180, 71, 108, 0.25);
-    z-index: 3;
-}
-
-.sobre-carta__sello::before,
-.sobre-carta__sello::after {
-    content: "";
-    position: absolute;
-    inset: 22px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.18);
-}
-
-.sobre-carta__sello::after {
-    inset: 10px;
-    border-color: rgba(255,255,255,0.16);
+    top: 16%;
+    left: 21%;
+    display: grid;
+    place-items: center;
+    width: 58%;
+    height: 68%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    outline: 1px solid rgba(255, 255, 255, 0.42);
+    outline-offset: 7px;
+    border-radius: 8px;
+    color: #477f9f;
+    font-family: "Parisienne", cursive;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    text-align: center;
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.5);
 }
 
 .texto-bajo {
@@ -771,10 +836,6 @@ body::before {
 }
 
 @media (max-width: 480px) {
-    .sobre-carta {
-        height: 280px;
-    }
-
     .accion {
         width: 130px;
         height: 52px;
@@ -840,7 +901,7 @@ body::before {
     }
 }
 
-.page-propuesta--etapa-3 .sobre-carta {
+.page-propuesta--etapa-3 .libro-propuesta {
     animation: temblor-sobre 1.8s ease-in-out infinite;
 }
 
@@ -1009,7 +1070,7 @@ body::before {
     }
 }
 
-.page-propuesta--etapa-5 .sobre-carta,
+.page-propuesta--etapa-5 .libro-propuesta,
 .page-propuesta--etapa-5 .accion--si {
     animation: none;
 }
@@ -1047,11 +1108,11 @@ body::before {
     animation: none;
 }
 
-.sobre-carta__danos {
+.libro-propuesta__danos {
     display: none;
 }
 
-.page-propuesta--etapa-6-1 .sobre-carta__danos {
+.page-propuesta--etapa-6-1 .libro-propuesta__danos {
     display: block;
     position: absolute;
     inset: 0;
@@ -1134,26 +1195,24 @@ body::before {
     transition: left 0.18s ease, top 0.18s ease;
 }
 
-.sobre-carta__mensaje[hidden] {
+.libro-propuesta__mensaje[hidden] {
     display: none;
 }
 
-.page-propuesta--no-hover .sobre-carta {
+.page-propuesta--no-hover .libro-propuesta {
     overflow: visible;
     background: transparent;
     border-color: transparent;
     box-shadow: none;
 }
 
-.page-propuesta--no-hover .sobre-carta::before,
-.page-propuesta--no-hover .sobre-carta::after,
-.page-propuesta--no-hover .sobre-carta__solapa,
-.page-propuesta--no-hover .sobre-carta__sello,
-.page-propuesta--no-hover .sobre-carta__danos {
+.page-propuesta--no-hover .libro-propuesta__lomo,
+.page-propuesta--no-hover .libro-propuesta__titulo,
+.page-propuesta--no-hover .libro-propuesta__danos {
     display: none;
 }
 
-.page-propuesta--no-hover .sobre-carta__mensaje {
+.page-propuesta--no-hover .libro-propuesta__mensaje {
     position: absolute;
     inset: 0;
     display: grid;
@@ -1166,7 +1225,7 @@ body::before {
     overflow-wrap: anywhere;
 }
 
-.page-propuesta--no-hover .sobre-carta__mensaje--grande {
+.page-propuesta--no-hover .libro-propuesta__mensaje--grande {
     font-size: clamp(3rem, 8vw, 4.5rem);
 }
 
@@ -1178,7 +1237,7 @@ body::before {
     font-size: 1rem;
 }
 
-.page-propuesta--etapa-6-2 .sobre-carta,
+.page-propuesta--etapa-6-2 .libro-propuesta,
 .page-propuesta--etapa-6-2 .accion--si {
     animation: none;
 }
