@@ -8,13 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Parisienne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body class="page-recuerdos">
     <main class="recuerdos">
         <header class="recuerdos__encabezado">
             <h1>Nuestros recuerdos</h1>
             <p>Un pequeño álbum de momentos especiales ♡</p>
+            <p class="ok-nota">Pd: puedes hacer zoom si la foto se ve pequeña</p>
+            <div class="recuerdos__musica">
+                <span class="vinilo-recuerdos__corazon vinilo-recuerdos__corazon--izquierda-uno" aria-hidden="true">♡</span>
+                <span class="vinilo-recuerdos__corazon vinilo-recuerdos__corazon--izquierda-dos" aria-hidden="true">♥</span>
+                <span class="vinilo-recuerdos__corazon vinilo-recuerdos__corazon--izquierda-tres" aria-hidden="true">♡</span>
+                <button class="vinilo-recuerdos" id="controlVinilo" type="button" aria-label="Reproducir música" aria-pressed="false"></button>
+                <p class="recuerdos__musica-indicacion">Toca el vinilo</p>
+                <span class="vinilo-recuerdos__corazon vinilo-recuerdos__corazon--derecha-uno" aria-hidden="true">♥</span>
+                <span class="vinilo-recuerdos__corazon vinilo-recuerdos__corazon--derecha-dos" aria-hidden="true">♡</span>
+                <audio id="musicaRecuerdos" preload="none">
+                    <source src="img/Enjambre%20-%20C%C3%A1mara%20de%20Faltas%20(Audio).mp3" type="audio/mpeg">
+                </audio>
+            </div>
         </header>
         <section class="recuerdos__galeria" aria-label="Galería de recuerdos">
             <figure class="recuerdos__foto recuerdos__foto--principal">
@@ -72,7 +85,7 @@
             <div class="recuerdos__composicion">
                 <figure class="recuerdos__foto recuerdos__foto--vertical">
                     <img src="img/Recuerdo%2014.jpg" alt="Recuerdo 14" loading="lazy">
-                    <figcaption class="recuerdos__descripcion">Yo dandolo todo con mi 2% y mis datos robados por ti</figcaption>
+                    <figcaption class="recuerdos__descripcion">Yo dandolo todo por ti con mi 2% y mis datos robados</figcaption>
                 </figure>
                 <div class="recuerdos__columna">
                     <figure class="recuerdos__foto">
@@ -161,6 +174,13 @@
                     <figcaption class="recuerdos__descripcion">Toda una pro insana 67, la mejora jugadora del braul</figcaption>
                 </figure>
             </div>
+            <figure class="recuerdos__foto recuerdos__foto--ancho-completo">
+                <video controls playsinline preload="metadata" aria-label="Video de recuerdos">
+                    <source src="img/Screenrecorder-20260623-114822~3.mp4" type="video/mp4">
+                    El navegador no aguanto tanto mi amor por ti y no mostro el video...
+                </video>
+                <figcaption class="recuerdos__descripcion">Mi hermoso museo de la chica más linda en mi mundito de minecraft :3 </figcaption>
+            </figure>
             <figure class="recuerdos__foto recuerdos__foto--recuerdo-siete">
                 <img src="img/Recuerdo%207.jpg" alt="Recuerdo 7" loading="lazy">
                 <figcaption class="recuerdos__descripcion">Yo y betty te mandamos un feliz cumpleaños :3 <br> (nadie fue obligado)</figcaption>
@@ -170,5 +190,6 @@
             <a class="carta-controles__boton" href="Libro.html">Volver al libro</a>
         </footer>
     </main>
+    <script src="js/recuerdo.js"></script>
 </body>
 </html>

@@ -12,10 +12,10 @@
 </head>
 <body class="page-ok">
     <main class="ok-contenido">
-        <p class="ok-carta">Supongo que me odias..., no se que hice pero supongo que si me odias..., para no querer leer mi carta :c.<br>
+        <p class="ok-carta">Supongo que me odias..., no se que hice pero supongo que si me odias..., para no querer leer el libro :c.<br>
             bueno, antes de terminar aqui, solo dejame hacerte una preguntas. Ante todo feliz cumpleaños y que la pases bonito ilysm.</p>
 
-        <p class="ok-introduccion">suponiendo que no quieres leer mi carta, responde esto :'v</p>
+        <p class="ok-introduccion">suponiendo que no quieres leer mi librito, responde esto :'v</p>
         <h1 class="ok-pregunta">Me odias?</h1>
 
         <div class="ok-opciones" aria-label="Respuestas a la pregunta">
@@ -76,10 +76,10 @@
                     <button class="ok-boton" type="button" data-respuesta="Igualmente te sigo queriendo :3">No.</button>
                 </div>
                 <div class="ok-opcion">
-                    <button class="ok-boton" type="button" data-respuesta="Pues yo mass :3">Un poco</button>
+                    <button class="ok-boton" type="button" data-respuesta="Pues yo másss :3">Un poco</button>
                 </div>
                 <div class="ok-opcion">
-                    <button class="ok-boton" type="button" data-respuesta="Pues ya sabes que yo siempre te voy a querer mas que tu a mi :3">shi</button>
+                    <button class="ok-boton" type="button" data-respuesta="Pues ya sabes que yo siempre te voy a querer másss que tu a mi :3">shi</button>
                 </div>
             </div>
         </section>
@@ -89,34 +89,9 @@
             <a class="ok-boton ok-boton--inicio" href="index.html">Inicio</a>
         </div>
 
-        <p class="ok-nota"> Pd: Puedes marcar mas de una opcion para saber la respuesta  <br> <br> Pd: Me dio pena escribir cada pregunta junto a cada respuesta unu <br> <br> Pd: Cualquier respuesta sera privada y no podre saber que respondiste por la simple razon que no se como hacerlo :v</p>
+        <p class="ok-nota"> Pd: Puedes marcar más de una opcion para saber la respuesta  <br> <br> Pd: Me dio pena escribir cada pregunta junto a cada respuesta unu <br> <br> Pd: Cualquier respuesta sera privada y no podre saber que respondiste por la simple razon que no se como hacerlo :v</p>
     </main>
 
-    <script>
-        document.querySelectorAll('button.ok-boton').forEach(function (boton) {
-            boton.addEventListener('click', function () {
-                if (boton.disabled) {
-                    return;
-                }
-
-                boton.disabled = true;
-                boton.classList.add('ok-boton--desvanecer');
-                function mostrarRespuesta(event) {
-                    if (event.propertyName !== 'opacity') {
-                        return;
-                    }
-
-                    boton.removeEventListener('transitionend', mostrarRespuesta);
-                    const respuesta = document.createElement('span');
-                    respuesta.className = 'ok-respuesta';
-                    respuesta.textContent = boton.dataset.respuesta;
-                    respuesta.setAttribute('aria-live', 'polite');
-                    boton.replaceWith(respuesta);
-                }
-
-                boton.addEventListener('transitionend', mostrarRespuesta);
-            });
-        });
-    </script>
+    <script src="js/ok.js"></script>
 </body>
 </html>
