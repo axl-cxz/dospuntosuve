@@ -1,6 +1,5 @@
 const vinilo = document.getElementById('controlVinilo');
 const musica = document.getElementById('musicaRecuerdos');
-let inicioMusicaPendiente = null;
 
 function actualizarVinilo(reproduciendo) {
     vinilo.classList.toggle('vinilo-recuerdos--girando', reproduciendo);
@@ -9,22 +8,11 @@ function actualizarVinilo(reproduciendo) {
 }
 
 vinilo.addEventListener('click', function () {
-    if (inicioMusicaPendiente !== null) {
-        window.clearTimeout(inicioMusicaPendiente);
-        inicioMusicaPendiente = null;
-        actualizarVinilo(false);
-        return;
-    }
-
     if (musica.paused) {
-        vinilo.setAttribute('aria-label', 'Cancelar inicio de música');
-        inicioMusicaPendiente = window.setTimeout(function () {
-            inicioMusicaPendiente = null;
-            musica.play().catch(function () {
-                actualizarVinilo(false);
-                vinilo.setAttribute('aria-label', 'No se pudo reproducir la música. Tocar para reintentar.');
-            });
-        }, 1000);
+        musica.play().catch(function () {
+            actualizarVinilo(false);
+            vinilo.setAttribute('aria-label', 'No se pudo reproducir la música. Tocar para reintentar.');
+        });
     } else {
         musica.pause();
     }

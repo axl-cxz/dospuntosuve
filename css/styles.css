@@ -740,12 +740,17 @@ body::before {
     margin: 0;
 }
 
-.recuerdos__musica-indicacion {
+.recuerdos__encabezado .recuerdos__musica-indicacion {
     margin: 5px 0 0;
     color: rgba(73, 58, 82, 0.52);
     font-size: 0.5rem;
     font-style: italic;
     white-space: nowrap;
+}
+
+.recuerdos__musica-indicacion small {
+    display: block;
+    font-size: 0.8em;
 }
 
 .vinilo-recuerdos__corazon {
@@ -802,16 +807,16 @@ body::before {
 
 @media (max-width: 600px) {
     .recuerdos__encabezado {
-        margin-bottom: 104px;
+        margin-bottom: 114px;
     }
 
     .recuerdos__musica {
         top: auto;
         right: auto;
         left: 50%;
-        bottom: -98px;
+        bottom: -108px;
         width: 150px;
-        height: 86px;
+        height: 96px;
         transform: translateX(-50%);
     }
 
@@ -1632,6 +1637,19 @@ body::before {
 
 .page-propuesta--no-hover .libro-propuesta__mensaje--grande {
     font-size: clamp(3rem, 8vw, 4.5rem);
+}
+
+@media (max-width: 600px) {
+    .page-propuesta--no-hover .libro-propuesta {
+        width: min(100%, 360px);
+    }
+
+    .page-propuesta--no-hover .libro-propuesta__mensaje--una-linea {
+        padding: 8px;
+        font-size: clamp(1.25rem, 10vw, 2rem);
+        white-space: nowrap;
+        overflow-wrap: normal;
+    }
 }
 
 .no-escapista__boton {

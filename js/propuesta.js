@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btnNo.textContent = 'Ok';
             document.body.classList.add('page-propuesta--etapa-6-1');
         } else if (document.body.classList.contains('page-propuesta--etapa-4')) {
-            mensaje.textContent = 'Mmmm, de verdad no quieres leer el libro...,? o si?';
+            mensaje.textContent = 'Mmmm, de verdad no quieres leer el libro...?, o si?';
             btnNo.textContent = 'No, no quiero leer lo que escribiste';
             textoSi.textContent = 'Si quiero, todo fue por casualidad XD';
             document.body.classList.add('page-propuesta--etapa-5');
@@ -104,6 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ];
         intentosNoEscapista += 1;
         mensajeEscapista.textContent = mensajes[intentosNoEscapista - 1];
+        mensajeEscapista.classList.toggle(
+            'libro-propuesta__mensaje--una-linea',
+            mensajeEscapista.textContent === 'Carambas'
+        );
         mensajeEscapista.hidden = false;
         document.body.classList.add('page-propuesta--no-hover');
         mensajeEscapista.classList.toggle('libro-propuesta__mensaje--grande', intentosNoEscapista === 2);
